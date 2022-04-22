@@ -8,15 +8,14 @@ class mUser extends Database {
         parent::__construct();
     }
 
-
-    function addUser($data){
-
-        $sql = "INSERT INTO tbl_users (email,password)  
-                    VALUES ( '".$data['email']."', '".$data['pass1']."' )";
-
-        $this->db->query($sql);
-
-        $this->close();
+    function isRegisteredEmail($email){
+        $sql = "select count(*) as adet from tbl_users where email='".$email."'";
+        $response  = $this->db->query($sql);
+        $response =  $response->fetch_assoc();
+        if($response["adet"] != 0)
+            return true;
+        else
+            return false;
     }
 
     function getUser($userId){

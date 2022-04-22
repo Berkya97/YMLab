@@ -1,6 +1,10 @@
 <?php
 define("CONTROL",1);
 
+require "controllers/users.php";
+require "controllers/users.php";
+require "controllers/users.php";
+
 require "helpers/response.php";
 
 $controller = strtolower(@$_GET["c"]);
@@ -12,6 +16,9 @@ $param      = strtolower(@$_GET["p"]);
 switch ($controller){
     case "users":
         users($method,$param);
+        break;
+    case "sign":
+        sign($method,$param);
         break;
     default:
         die("default case");
@@ -31,8 +38,20 @@ function users($method,$param=-1){
         default:
             die("missing method");
     }
+}
 
 
+function sign($method,$param=-1){
+    require "controllers/sign.php";
+    $sing = new Sign();
+
+    switch ($method){
+        case "register":
+            $sing->register();
+            break;
+        default:
+            die("missing method");
+    }
 }
 
 
