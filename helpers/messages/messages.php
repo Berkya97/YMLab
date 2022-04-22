@@ -7,10 +7,12 @@ class SystemMessages{
 
 class SignMessages{
     const success = "Kayıt başarılı";
+    const successTemp = "Kayıt başarılı. Lütfen aktivasyon için mail adresinize gönderilen linke tıklayınız";
     const shortPass = "şifreniz 5 karakterden daha uzun olmalıdır";
     const errMatchPass = "Parolalar uyuşmuyor";
     const invalidEmail = "email adresi geçerli değil";
     const usedEmail = "email adresi zaten kullanılıyor";
+    const reRegisterTime = "Lütfen size gönderilen aktivasyon linkine tıklayınız ya da yeniden kayıt olmak için beklemeniz gereken süre : ";
 }
 
 

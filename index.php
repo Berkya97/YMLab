@@ -1,11 +1,8 @@
 <?php
 define("CONTROL",1);
 
-require "controllers/users.php";
-require "controllers/users.php";
-require "controllers/users.php";
-
-require "helpers/response.php";
+require "helpers/messages/response.php";
+require "config/config.php";
 
 $controller = strtolower(@$_GET["c"]);
 $method     = strtolower(@$_GET["m"]);
@@ -48,6 +45,9 @@ function sign($method,$param=-1){
     switch ($method){
         case "register":
             $sing->register();
+            break;
+        case "activation":
+            $sing->activation($param);
             break;
         default:
             die("missing method");

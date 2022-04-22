@@ -39,22 +39,27 @@ class Sign{
         if($this->mUser->isRegisteredEmail($data["email"]))
             Response::response(Status::BAD_REQUEST, SignMessages::usedEmail);
 
-        if($this->mSign->register($data))
-            Response::response(Status::OK, SignMessages::success);
+        $time = $this->mSign->isRegisteredEmailInTemp($data["email"]);
+        if($time != 0){
+            if(time() - $time < Config::RE_REGISTER_CYCLE){
+                $time = Config::RE_REGISTER_CYCLE - (time() - $time);
+                Response::response(Status::BAD_REQUEST, SignMessages::reRegisterTime . $time );
+            }
+        }
+
+        if($this->mSign->registerTemp($data))
+            Response::response(Status::OK, SignMessages::successTemp);
         else
             Response::response(Status::SERVER_ERR, SystemMessages::unknown);
 
 
     }
 
-    function getUser($userId){
-        $user = array(
-            "userId" => $userId,
-            "name"   => "emre can",
-            "email"  => "emrecandegis@topkapi.edu.tr"
-        );
-        $resp = new Response();
-        Response::response(Status::OK, UserMessages::getUser,$user);
+    function activation($k){
+        if($this->mSign->activation($k))
+            Response::response(Status::OK, SignMessages::success);
+        else
+            Response::response(Status::SERVER_ERR, SystemMessages::unknown);
     }
 
 }
