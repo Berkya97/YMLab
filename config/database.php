@@ -1,9 +1,6 @@
 <?php
 if(!defined("CONTROL"))die("access denied");
 
-if(defined("DB"))return;
-define("DB",1);
-
 
 class Database{
 

@@ -1,22 +1,11 @@
 <?php
 if(!defined("CONTROL"))die("access denied");
 
-class SystemMessages{
-    const unknown = "Bir hata meydana geldi";
-}
-
-class SignMessages{
-    const success = "Kayıt başarılı";
+class UserMessages{
+    const getUser = "getUser metodu içerisindesiniz";
     const shortPass = "şifreniz 5 karakterden daha uzun olmalıdır";
     const errMatchPass = "Parolalar uyuşmuyor";
     const invalidEmail = "email adresi geçerli değil";
-    const usedEmail = "email adresi zaten kullanılıyor";
-}
-
-
-
-class UserMessages{
-    const getUser = "getUser metodu içerisindesiniz";
 }
 
 class LoginMessages{
