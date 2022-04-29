@@ -1,8 +1,21 @@
 <?php
 define("CONTROL",1);
+require "helpers/jwt.php";
+
+$payload = array(
+    "userId" => 1,
+    "time"   => 123,
+    "ip"     => "192.168.1.1"
+);
+$jwt = JWT::encode($payload);
+
+$jwtDecode = JWT::decode($jwt);
+var_dump($jwtDecode);
+die($jwt);
 
 require "helpers/messages/response.php";
 require "config/config.php";
+
 
 $controller = strtolower(@$_GET["c"]);
 $method     = strtolower(@$_GET["m"]);
@@ -16,6 +29,9 @@ switch ($controller){
         break;
     case "sign":
         sign($method,$param);
+        break;
+    case "login":
+        login($method,$param);
         break;
     default:
         die("default case");
@@ -48,6 +64,19 @@ function sign($method,$param=-1){
             break;
         case "activation":
             $sing->activation($param);
+            break;
+        default:
+            die("missing method");
+    }
+}
+
+function login($method,$param=-1){
+    require "controllers/login.php";
+    $login = new Login();
+
+    switch ($method){
+        case "login":
+            $login->login();
             break;
         default:
             die("missing method");

@@ -6,6 +6,10 @@ require "messages.php";
 
 class Response {
 
+    function __construct(){
+
+    }
+
     public static function response($status, $message , $data = -1){
 
         if($data == -1){

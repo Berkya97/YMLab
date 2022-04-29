@@ -22,7 +22,7 @@ class UserMessages{
 }
 
 class LoginMessages{
-    const OK = "getUser metodu içerisindesiniz";
+    const success = "Giriş başarılı";
     const ERR_PASS = "kullanıcı adı ve şifrenizi kontrol ediniz";
     const NOT_FOUND = "Bu eposta adresine ait kayıtlı kullanıcı bulunamadı";
 }

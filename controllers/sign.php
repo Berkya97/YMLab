@@ -25,7 +25,7 @@ class Sign{
             Response::response(Status::BAD_REQUEST, SignMessages::shortPass);
         }
 
-        if(strlen($data["pass1"]) !=  strlen($data["pass2"])){
+        if($data["pass1"] !=  $data["pass2"]){
             Response::response(Status::BAD_REQUEST, SignMessages::errMatchPass);
         }
         if (!filter_var($data["email"], FILTER_VALIDATE_EMAIL)) {
