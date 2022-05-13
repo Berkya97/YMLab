@@ -9,15 +9,16 @@ class mLogin extends Database {
     }
 
     function login($email,$pass){
-        $sql = "select count(*) as adet from tbl_users where email='$email' AND password='$pass'";
+        $sql = "select id from tbl_users where email='$email' AND password='$pass'";
 
         $response  = $this->db->query($sql);
-        $response =  $response->fetch_assoc();
+        $response =  $response->fetch_all();
 
-        if($response["adet"] == 1){
-            return true;
+
+        if(count($response) == 1){
+            return $response[0][0];
         }else{
-            return false;
+            return 0;
         }
     }
 

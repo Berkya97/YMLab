@@ -10,8 +10,6 @@ $payload = array(
 $jwt = JWT::encode($payload);
 
 $jwtDecode = JWT::decode($jwt);
-var_dump($jwtDecode);
-die($jwt);
 
 require "helpers/messages/response.php";
 require "config/config.php";
@@ -32,6 +30,9 @@ switch ($controller){
         break;
     case "login":
         login($method,$param);
+        break;
+    case "topic":
+        topic($method,$param);
         break;
     default:
         die("default case");
@@ -77,6 +78,19 @@ function login($method,$param=-1){
     switch ($method){
         case "login":
             $login->login();
+            break;
+        default:
+            die("missing method");
+    }
+}
+
+function topic($method,$param=-1){
+    require "controllers/topic.php";
+    $topic = new Topic();
+
+    switch ($method){
+        case "add":
+            $topic->add();
             break;
         default:
             die("missing method");

@@ -8,11 +8,13 @@ class Users{
 
     function __construct() {
         require "models/user_model.php";
+        JWT::isLogin();
     }
 
 
 
     function getUser($userId){
+
         $user = array(
             "userId" => $userId,
             "name"   => "emre can",

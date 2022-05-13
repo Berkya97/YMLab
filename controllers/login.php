@@ -13,6 +13,14 @@ class Login{
 
     //Giriş yapma
     function login(){
+
+
+        if(JWT::isLogin())
+            die("OK");
+        else
+            die("NOT LOGIN");
+
+
         $email = trim(@$_POST["email"]);
         $pass  = trim(@$_POST["pass"]);
 
@@ -20,11 +28,15 @@ class Login{
             Response::response(Status::BAD_REQUEST, SignMessages::invalidEmail);
         }
 
+        if(trim($pass) == ""){
+            Response::response(Status::BAD_REQUEST, LoginMessages::ERR_PASS);
+        }
+
         $pass = md5($pass);
 
-        if($this->mLogin->login($email,$pass)){
-            setcookie("email",$email);
-            setcookie("password",$pass);
+        $userId = $this->mLogin->login($email,$pass);
+        if($userId){
+            JWT::start($userId);
             Response::response(Status::OK, LoginMessages::success);
         }
         else

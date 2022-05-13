@@ -15,9 +15,40 @@
  */
 
 
-define("KEY","SYQm4tRYcpp9naDne0HpAMFORK2ZYSD8YmeGxoR6lACAmw4gcPzc03Aclcxz9MmXxufm0LW3OE6svXshzKmzShM34uR6uHOb8pbX");
+define("KEY","SYQm4tRYcpp9naDne0HpMFORK2ZYSD8YmeGxoR6lACAmw4gcPzc03Aclcxz9MmXxufm0LW3OE6svXshzKmzShM34uR6uHOb8pbX");
 
 class JWT{
+
+
+    public static function start($userId){
+        session_start();
+        $payload = array(
+            "userId" => $userId,
+            "time"   => time()
+        );
+        $jwt = JWT::encode($payload);
+        $_SESSION["token"] = $jwt;
+    }
+
+    public static function isLogin(){
+        session_start();
+        $jwt = @$_SESSION["token"];
+        if(!isset($jwt)){
+            Response::response(Status::ACCESS_DENIED, SystemMessages::accessDenied);
+        }
+        $decode = JWT::decode($jwt);
+        if($decode){
+            if($decode->time + Config::LOGIN_EXP_TIME < time())
+                Response::response(Status::ACCESS_DENIED, SystemMessages::accessDenied);
+
+            return $decode->userId;
+        }else{
+            Response::response(Status::ACCESS_DENIED, SystemMessages::accessDenied);
+        }
+    }
+
+
+
 
     /**
      * Decodes a JWT string into a PHP object.
@@ -32,14 +63,8 @@ class JWT{
      * @uses jsonDecode
      * @uses urlsafeB64Decode
      */
-    public static function decode($verify = true)
+    public static function decode($jwt,$verify = true)
     {
-        session_start();
-        $jwt = @$_SESSION["token"];
-        $jwt = $verify;
-        if(!isset($jwt)){
-            return false;
-        }
 
         $tks = explode('.', $jwt);
         if (count($tks) != 3) {
@@ -58,7 +83,7 @@ class JWT{
                 return false;
             }
             if ($sig != JWT::sign("$headb64.$bodyb64", $header->alg)) {
-                die($headb64."__".$header->alg);
+                //die($headb64."__".$header->alg);
                 return false;
             }
         }

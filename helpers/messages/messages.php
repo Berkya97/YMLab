@@ -3,6 +3,7 @@ if(!defined("CONTROL"))die("access denied");
 
 class SystemMessages{
     const unknown = "Bir hata meydana geldi";
+    const accessDenied = "Bu işlemi yapmak için yetkiniz yok";
 }
 
 class SignMessages{
@@ -15,6 +16,9 @@ class SignMessages{
     const reRegisterTime = "Lütfen size gönderilen aktivasyon linkine tıklayınız ya da yeniden kayıt olmak için beklemeniz gereken süre : ";
 }
 
+class TopicMessages{
+    const emptyVal = "Lütfen tüm alanları doldurun";
+}
 
 
 class UserMessages{
